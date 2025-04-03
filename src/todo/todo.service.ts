@@ -1,51 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import data from './data';
+import { CreateTodoDto } from './dto/create-todo.dto';
+import { UpdateTodoDto } from './dto/update-todo.dto';
 
 @Injectable()
 export class TodoService {
-  listAllTodos() {
-    return data;
-  }
-  getTodo(id: number) {
-    return data.todos.find((todo) => {
-      return todo.id === id;
-    });
-  }
-  createTodo(payload) {
-    data.todos.push({
-      id: payload.id,
-      todo: payload.todo,
-      completed: payload.completed,
-      userId: payload.userId,
-    });
-    return data;
+  create(createTodoDto: CreateTodoDto) {
+    return 'This action adds a new todo';
   }
 
-  deleteTodo(id: number) {
-    const index: number = data.todos.findIndex((todo) => {
-      return todo.id === id;
-    });
-    if (index >= 0) {
-      data.todos.splice(index, 1);
-    } else {
-      return 'no todo find to delete';
-    }
-    return data;
+  findAll() {
+    return `This action returns all todo`;
   }
 
-  updateTodo(id: number, body) {
-    const index: number = data.todos.findIndex((todo) => {
-      return todo.id === id;
-    });
-    
-    console.log('✌️body?.completed --->', body?.completed);
-    if (body?.completed ===false ||body?.completed ===true  ) {
-      data.todos[index].completed = body.completed;
-    }
-    if (body.todo) {
-      data.todos[index].todo = body.todo;
-    }
+  findOne(id: number) {
+    return `This action returns a #${id} todo`;
+  }
 
-    return data;
+  update(id: number, updateTodoDto: UpdateTodoDto) {
+    return `This action updates a #${id} todo`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} todo`;
   }
 }
