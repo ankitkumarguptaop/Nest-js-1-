@@ -25,13 +25,16 @@
     "down": "npm run typeorm  -- migration:revert"
   },
   "dependencies": {
+    "@nestjs/class-validator": "^0.13.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.0",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.4.7",
+    "jsonwebtoken": "^9.0.2",
     "nest": "^0.1.6",
     "pg": "^8.14.1",
     "reflect-metadata": "^0.2.2",
