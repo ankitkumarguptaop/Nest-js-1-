@@ -17,7 +17,7 @@ export class Todo1743682082167 implements MigrationInterface {
             isNullable: false,
           },
           {
-            name: 'user_id',
+            name: 'userId',
             type: 'int',
             isNullable: false,
           },
@@ -32,7 +32,7 @@ export class Todo1743682082167 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'todo',
       new TableForeignKey({
-        columnNames: ['user_id'],
+        columnNames: ['userId'],
         referencedColumnNames: ['id'],
         referencedTableName: 'user',
         onDelete: 'CASCADE',

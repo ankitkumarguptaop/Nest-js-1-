@@ -13,8 +13,7 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './create-user.dto';
 import { UpdateUserDto } from './update-user.dto';
 import { SignInUserDto } from './signin.dto';
-import { Request, Response } from 'express';
-import { User } from 'src/domain/user/user.entity';
+import { Response } from 'express';
 
 @Controller('users')
 export class UserController {
@@ -24,22 +23,20 @@ export class UserController {
   signup(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
+
   @Post('/signin')
   async signin(
     @Body() signInUserDto: SignInUserDto,
-    @Req() request: Request,
     @Res() response: Response,
   ) {
     const user = await this.userService.signIn(signInUserDto);
-    
-    if(user instanceof User){
-      response.cookie('jwt', this.userService.generateToken(user.id), {
-        maxAge: 900000,
-        httpOnly: true,
-      });
-    }
-
-   return user ;
+    const token = this.userService.generateToken(user.id);
+    response.cookie('jwt', token, {
+      httpOnly: true,
+      maxAge: 3 * 24 * 60 * 60 * 1000, 
+    });
+  
+    response.json({ message: 'Login successful', user });
   }
 
   @Get()

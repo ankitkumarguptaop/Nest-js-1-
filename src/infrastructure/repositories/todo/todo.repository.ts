@@ -25,8 +25,11 @@ constructor(private dataSource: DataSource) {
     return await this.findOne({ where: { id } });
   }
 
-  async findAll(): Promise<Todo[]> {
-    return await this.find();
+  async findAll(userId:number): Promise<Todo[]> {
+    return await this.find({
+      where: { user: { id: userId } },
+      order: { id: 'ASC' },
+    });
   }
 
   async deleteTodo(id: number): Promise<void> {

@@ -9,7 +9,7 @@ export const dataSourceOptions = (
     username: 'postgres',
     password: 'Ankit@1234',
     database: 'tododb',
-    host: 'database',
+    host: 'localhost', // 'database'
     port: 5432,
     entities: ["dist/src/domain/**/*.entity.js"],
     synchronize: false,

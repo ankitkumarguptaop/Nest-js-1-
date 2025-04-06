@@ -8,10 +8,10 @@ export class Todo {
 
   @Column()
   todo: string;
-  
-  @ManyToOne(() => User, (user) => user.id)
-  user_id: number
 
   @Column()
   completed: boolean;
+
+  @ManyToOne(() => User, (user) => user.todos, { onDelete: 'CASCADE' })
+  user: User;
 }

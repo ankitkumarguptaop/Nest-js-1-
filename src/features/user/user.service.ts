@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 const jwt = require('jsonwebtoken');
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './create-user.dto';
@@ -12,13 +12,13 @@ import { User } from 'src/domain/user/user.entity';
 export class UserService {
   constructor(
     @InjectRepository(UserRepository) private userRepository: UserRepository,
-     private configService: ConfigService,
+    private configService: ConfigService,
   ) {}
   async create(createUserDto: CreateUserDto) {
     return await this.userRepository.createUser(createUserDto);
   }
 
-  generateToken = (id:number) => {
+  generateToken = (id: number) => {
     return jwt.sign({ id }, this.configService.get<number>('JWT_SECRET'), {
       expiresIn: '3d',
     });
@@ -31,15 +31,15 @@ export class UserService {
       },
     });
 
-    if(!user){
-      return "user not found"
+    if (!user) {
+      throw new UnauthorizedException('User not found');
     }
 
-    if(user.password!==password){
-     return "Password not matched"
+    if (password !== user.password) {
+      throw new UnauthorizedException('Invalid password');
     }
 
-    return user
+    return user;
   }
 
   async findAll() {

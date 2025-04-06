@@ -10,12 +10,15 @@ export class TodoService {
     @InjectRepository(TodoRepository) private todoRepository: TodoRepository,
   ) {}
   
-  async create(createTodoDto: CreateTodoDto) {
-    return await this.todoRepository.createTodo(createTodoDto);
+  async create(createTodoDto: CreateTodoDto ,userId: number) {
+    return await this.todoRepository.createTodo({ 
+      ...createTodoDto, 
+      user: { id: userId } as any
+    });
   }
 
-  async findAll() {
-    return await this.todoRepository.findAll();
+  async findAll(userId: number) {
+    return await this.todoRepository.findAll(userId );
   }
 
   async findOne(id: number) {
